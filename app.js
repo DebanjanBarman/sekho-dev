@@ -11,8 +11,8 @@ const userRouter = require('./routes/userRoutes');
 const app = express();
 
 //Body parser
-app.use(express.json({limit:'10kb'}))
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json({limit: '10kb'}))
+app.use(express.urlencoded({extended: true, limit: '10kb'}));
 app.use(cookieParser());
 
 
@@ -25,11 +25,12 @@ app.use((req, res, next) => {
 
 //Routes
 app.use('/api/v1/course', courseRouter);
-// app.use('/api/v1/users', userRouter);
+app.use('/api/v1/users', userRouter);
+
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
 app.use(globalErrorHandler);
 
-module.exports=app
+module.exports = app
